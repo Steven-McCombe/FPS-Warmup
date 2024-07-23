@@ -2,7 +2,7 @@
 
 body {
   font-family: 'Roboto', sans-serif;
-  background-color: #1e1e1e;
+  background-color: #1a1a1a;
   color: #ffffff;
   display: flex;
   justify-content: center;
@@ -13,12 +13,12 @@ body {
 
 .container {
   text-align: center;
-  width: 80%;
+  width: 90%;
   max-width: 800px;
   padding: 20px;
   border-radius: 10px;
-  background-color: #2e2e2e;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+  background-color: #2b2b2b;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
 }
 
 h1 {
@@ -29,9 +29,12 @@ h1 {
 .settings {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: space-between;
   gap: 15px;
   margin-bottom: 20px;
+  padding: 20px;
+  background-color: #1f1f1f;
+  border-radius: 10px;
 }
 
 .settings label {
@@ -42,7 +45,12 @@ h1 {
 .settings input[type="range"],
 .settings select,
 .settings input[type="color"] {
-  margin: 0 10px;
+  margin: 5px 0;
+  padding: 5px;
+  border: none;
+  border-radius: 5px;
+  background-color: #3a3a3a;
+  color: #ffffff;
 }
 
 #startGame {
@@ -54,6 +62,7 @@ h1 {
   font-weight: bold;
   cursor: pointer;
   transition: background-color 0.3s ease;
+  margin-bottom: 20px;
 }
 
 #startGame:hover {
@@ -66,7 +75,7 @@ h1 {
   border: 2px solid #00ff00;
   margin: 20px auto;
   position: relative;
-  background-color: #1a1a1a;
+  background-color: #121212;
   border-radius: 10px;
 }
 
@@ -97,16 +106,6 @@ h1 {
   color: red;
 }
 
-.crosshair {
-  pointer-events: none; /* Ensure it doesn't interfere with clicks */
-  z-index: 10; /* Ensure it appears above other elements */
-}
-
-#gameArea {
-  cursor: none; /* Hide the mouse pointer */
-  position: relative; /* Ensure it contains the absolute positioned elements */
-}
-
 .crosshair-preview {
   position: relative;
   width: 100px;
@@ -130,4 +129,9 @@ h1 {
 .crosshair.vertical {
   width: 2px; /* Default thickness */
   background-color: #00ff00; /* Default color */
+}
+
+.crosshair {
+  pointer-events: none; /* Ensure it doesn't interfere with clicks */
+  z-index: 10; /* Ensure it appears above other elements */
 }

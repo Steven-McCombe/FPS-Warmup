@@ -10,42 +10,52 @@
   <div class="container">
     <h1>FPS Warm-Up</h1>
     <div class="settings">
-      <label for="sensitivity">Speed:</label>
-      <input type="range" id="sensitivity" min="0.5" max="5" step="0.1" value="1">
-      
-      <label for="boxSize">Target Size:</label>
-      <input type="range" id="boxSize" min="10" max="50" step="1" value="20">
-
-      <label for="shape">Shape:</label>
-      <select id="shape">
-        <option value="square">Square</option>
-        <option value="circle">Circle</option>
-      </select>
-
-      <label for="targetColor">Target Color:</label>
-      <input type="color" id="targetColor" value="#ff0000">
-
-      <label for="civilianColor">Civilian Color:</label>
-      <input type="color" id="civilianColor" value="#0000ff">
-
-      <label for="difficulty">Difficulty:</label>
-      <select id="difficulty">
-        <option value="5000">Noob (5 secs)</option>
-        <option value="4000">Easy (4 secs)</option>
-        <option value="3000">Medium (3 secs)</option>
-        <option value="2000">Hard (2 secs)</option>
-        <option value="1000">Advanced (1 sec)</option>
-        <option value="500">Elite (0.5 secs)</option>
-      </select>
-
-      <label for="crosshairColor">Crosshair Color:</label>
-      <input type="color" id="crosshairColor" value="#00ff00">
-
-      <label for="crosshairSize">Crosshair Size:</label>
-      <input type="range" id="crosshairSize" min="10" max="100" step="1" value="50">
-
-      <label for="crosshairThickness">Crosshair Thickness:</label>
-      <input type="range" id="crosshairThickness" min="1" max="10" step="1" value="2">
+      <div>
+        <label for="sensitivity">Sensitivity:</label>
+        <input type="range" id="sensitivity" min="0.1" max="5" step="0.1" value="1">
+      </div>
+      <div>
+        <label for="boxSize">Box Size:</label>
+        <input type="range" id="boxSize" min="10" max="50" step="1" value="20">
+      </div>
+      <div>
+        <label for="shape">Shape:</label>
+        <select id="shape">
+          <option value="square">Square</option>
+          <option value="circle">Circle</option>
+        </select>
+      </div>
+      <div>
+        <label for="targetColor">Target Color:</label>
+        <input type="color" id="targetColor" value="#ff0000">
+      </div>
+      <div>
+        <label for="civilianColor">Civilian Color:</label>
+        <input type="color" id="civilianColor" value="#0000ff">
+      </div>
+      <div>
+        <label for="difficulty">Difficulty:</label>
+        <select id="difficulty">
+          <option value="5000">Noob (5 secs)</option>
+          <option value="4000">Easy (4 secs)</option>
+          <option value="3000">Medium (3 secs)</option>
+          <option value="2000">Hard (2 secs)</option>
+          <option value="1000">Advanced (1 sec)</option>
+          <option value="500">Elite (0.5 secs)</option>
+        </select>
+      </div>
+      <div>
+        <label for="crosshairColor">Crosshair Color:</label>
+        <input type="color" id="crosshairColor" value="#00ff00">
+      </div>
+      <div>
+        <label for="crosshairSize">Crosshair Size:</label>
+        <input type="range" id="crosshairSize" min="10" max="100" step="1" value="50">
+      </div>
+      <div>
+        <label for="crosshairThickness">Crosshair Thickness:</label>
+        <input type="range" id="crosshairThickness" min="1" max="10" step="1" value="2">
+      </div>
     </div>
     <button id="startGame">Start Game</button>
     <div id="crosshairPreview" class="crosshair-preview"></div>
