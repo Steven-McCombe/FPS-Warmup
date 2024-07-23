@@ -13,7 +13,14 @@ document.addEventListener('DOMContentLoaded', () => {
   const crosshairSizeInput = document.getElementById('crosshairSize');
   const crosshairThicknessInput = document.getElementById('crosshairThickness');
   const crosshairPreview = document.getElementById('crosshairPreview');
+  const countdownDiv = document.getElementById('countdown');
   const clickSound = new Audio('Sounds/cs_go-awp-sound.mp3');
+  const countdownSounds = [
+    new Audio('Sounds/countdown_3.m4a'),
+    new Audio('Sounds/countdown_2.m4a'),
+    new Audio('Sounds/countdown_1.m4a'),
+  ];
+  const gameOverSound = new Audio('Sounds/game_over.m4a');
   
   let score = 0;
   let sensitivity = localStorage.getItem('sensitivity') || 1;
@@ -39,7 +46,10 @@ document.addEventListener('DOMContentLoaded', () => {
   crosshairSizeInput.value = crosshairSize;
   crosshairThicknessInput.value = crosshairThickness;
 
-  startGameButton.addEventListener('click', startGame);
+  startGameButton.addEventListener('click', () => {
+    startCountdown(() => startGame());
+  });
+
   sensitivityInput.addEventListener('input', (e) => {
     sensitivity = e.target.value;
     localStorage.setItem('sensitivity', sensitivity);
@@ -80,6 +90,24 @@ document.addEventListener('DOMContentLoaded', () => {
     updateCrosshairPreview();
   });
 
+  function startCountdown(callback) {
+    let count = 3;
+    countdownDiv.innerText = count;
+    countdownDiv.classList.remove('hidden');
+    
+    const countdownInterval = setInterval(() => {
+      countdownSounds[count - 1].play();
+      count--;
+      if (count > 0) {
+        countdownDiv.innerText = count;
+      } else {
+        clearInterval(countdownInterval);
+        countdownDiv.classList.add('hidden');
+        callback();
+      }
+    }, 1000);
+  }
+
   function startGame() {
     score = 0;
     scoreBoard.innerText = score;
@@ -97,6 +125,7 @@ document.addEventListener('DOMContentLoaded', () => {
     gameArea.removeEventListener('click', handleClick);
     gameArea.removeEventListener('mousemove', updateCrosshairPosition);
     gameOverDiv.classList.remove('hidden');
+    gameOverSound.play();
     clearGameArea();
   }
 
