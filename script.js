@@ -12,6 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const crosshairColorInput = document.getElementById('crosshairColor');
   const crosshairSizeInput = document.getElementById('crosshairSize');
   const crosshairThicknessInput = document.getElementById('crosshairThickness');
+  const crosshairPreview = document.getElementById('crosshairPreview');
   const clickSound = new Audio('Sounds/cs_go-awp-sound.mp3');
   
   let score = 0;
@@ -66,17 +67,17 @@ document.addEventListener('DOMContentLoaded', () => {
   crosshairColorInput.addEventListener('input', (e) => {
     crosshairColor = e.target.value;
     localStorage.setItem('crosshairColor', crosshairColor);
-    updateCrosshair();
+    updateCrosshairPreview();
   });
   crosshairSizeInput.addEventListener('input', (e) => {
     crosshairSize = e.target.value;
     localStorage.setItem('crosshairSize', crosshairSize);
-    updateCrosshair();
+    updateCrosshairPreview();
   });
   crosshairThicknessInput.addEventListener('input', (e) => {
     crosshairThickness = e.target.value;
     localStorage.setItem('crosshairThickness', crosshairThickness);
-    updateCrosshair();
+    updateCrosshairPreview();
   });
 
   function startGame() {
@@ -86,6 +87,7 @@ document.addEventListener('DOMContentLoaded', () => {
     gameRunning = true;
     gameInterval = setInterval(spawnTargets, 1000 / sensitivity);
     gameArea.addEventListener('click', handleClick);
+    gameArea.addEventListener('mousemove', updateCrosshairPosition);
     updateCrosshair(); // Set the crosshair on game start
   }
 
@@ -93,6 +95,7 @@ document.addEventListener('DOMContentLoaded', () => {
     clearInterval(gameInterval);
     gameRunning = false;
     gameArea.removeEventListener('click', handleClick);
+    gameArea.removeEventListener('mousemove', updateCrosshairPosition);
     gameOverDiv.classList.remove('hidden');
     clearGameArea();
   }
@@ -138,37 +141,73 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function updateCrosshair() {
+    // Remove old crosshair elements
     document.querySelectorAll('.crosshair').forEach(el => el.remove());
 
+    // Create new crosshair elements
     const horizontalLine = document.createElement('div');
     horizontalLine.className = 'crosshair horizontal';
     horizontalLine.style.backgroundColor = crosshairColor;
     horizontalLine.style.width = `${crosshairSize}px`;
     horizontalLine.style.height = `${crosshairThickness}px`;
-    horizontalLine.style.position = 'fixed';
-    horizontalLine.style.pointerEvents = 'none';
+    horizontalLine.style.position = 'absolute';
 
     const verticalLine = document.createElement('div');
     verticalLine.className = 'crosshair vertical';
     verticalLine.style.backgroundColor = crosshairColor;
     verticalLine.style.height = `${crosshairSize}px`;
     verticalLine.style.width = `${crosshairThickness}px`;
-    verticalLine.style.position = 'fixed';
-    verticalLine.style.pointerEvents = 'none';
+    verticalLine.style.position = 'absolute';
 
     gameArea.appendChild(horizontalLine);
     gameArea.appendChild(verticalLine);
 
-    gameArea.addEventListener('mousemove', (e) => {
-      const rect = gameArea.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
+    gameArea.crosshairHorizontal = horizontalLine;
+    gameArea.crosshairVertical = verticalLine;
 
+    updateCrosshairPosition({ clientX: gameArea.clientWidth / 2, clientY: gameArea.clientHeight / 2 });
+  }
+
+  function updateCrosshairPosition(e) {
+    const rect = gameArea.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+
+    const horizontalLine = gameArea.crosshairHorizontal;
+    const verticalLine = gameArea.crosshairVertical;
+
+    if (horizontalLine && verticalLine) {
       horizontalLine.style.left = `${x - crosshairSize / 2}px`;
       horizontalLine.style.top = `${y - crosshairThickness / 2}px`;
 
       verticalLine.style.left = `${x - crosshairThickness / 2}px`;
       verticalLine.style.top = `${y - crosshairSize / 2}px`;
-    });
+    }
   }
+
+  function updateCrosshairPreview() {
+    // Remove old crosshair elements from preview
+    while (crosshairPreview.firstChild) {
+      crosshairPreview.removeChild(crosshairPreview.firstChild);
+    }
+
+    // Create new crosshair elements for preview
+    const horizontalLine = document.createElement('div');
+    horizontalLine.className = 'crosshair horizontal';
+    horizontalLine.style.backgroundColor = crosshairColor;
+    horizontalLine.style.width = `${crosshairSize}px`;
+    horizontalLine.style.height = `${crosshairThickness}px`;
+
+    const verticalLine = document.createElement('div');
+    verticalLine.className = 'crosshair vertical';
+    verticalLine.style.backgroundColor = crosshairColor;
+    verticalLine.style.height = `${crosshairSize}px`;
+    verticalLine.style.width = `${crosshairThickness}px`;
+
+    crosshairPreview.appendChild(horizontalLine);
+    crosshairPreview.appendChild(verticalLine);
+  }
+
+  // Initialize crosshair preview
+  updateCrosshairPreview();
 });
