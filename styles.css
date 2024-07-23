@@ -96,3 +96,22 @@ h1 {
 #gameOver {
   color: red;
 }
+
+.crosshair {
+  position: absolute;
+  pointer-events: none; /* Ensure it doesn't interfere with clicks */
+}
+
+.crosshair.horizontal {
+  height: 2px; /* Default thickness */
+  width: 50px; /* Default size */
+  background-color: #00ff00; /* Default color */
+}
+
+.crosshair.vertical {
+  width: 2px; /* Default thickness */
+  height: 50px; /* Default size */
+  background-color: #00ff00; /* Default color */
+}
+
+

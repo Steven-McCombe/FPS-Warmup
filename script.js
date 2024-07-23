@@ -9,6 +9,9 @@ document.addEventListener('DOMContentLoaded', () => {
   const targetColorInput = document.getElementById('targetColor');
   const civilianColorInput = document.getElementById('civilianColor');
   const difficultySelect = document.getElementById('difficulty');
+  const crosshairColorInput = document.getElementById('crosshairColor');
+  const crosshairSizeInput = document.getElementById('crosshairSize');
+  const crosshairThicknessInput = document.getElementById('crosshairThickness');
   const clickSound = new Audio('Sounds/cs_go-awp-sound.mp3');
   
   let score = 0;
@@ -18,6 +21,9 @@ document.addEventListener('DOMContentLoaded', () => {
   let targetColor = localStorage.getItem('targetColor') || '#ff0000';
   let civilianColor = localStorage.getItem('civilianColor') || '#0000ff';
   let difficulty = localStorage.getItem('difficulty') || 5000;
+  let crosshairColor = localStorage.getItem('crosshairColor') || '#00ff00';
+  let crosshairSize = localStorage.getItem('crosshairSize') || 50;
+  let crosshairThickness = localStorage.getItem('crosshairThickness') || 2;
   let gameInterval;
   let gameRunning = false;
 
@@ -28,6 +34,9 @@ document.addEventListener('DOMContentLoaded', () => {
   targetColorInput.value = targetColor;
   civilianColorInput.value = civilianColor;
   difficultySelect.value = difficulty;
+  crosshairColorInput.value = crosshairColor;
+  crosshairSizeInput.value = crosshairSize;
+  crosshairThicknessInput.value = crosshairThickness;
 
   startGameButton.addEventListener('click', startGame);
   sensitivityInput.addEventListener('input', (e) => {
@@ -54,6 +63,21 @@ document.addEventListener('DOMContentLoaded', () => {
     difficulty = e.target.value;
     localStorage.setItem('difficulty', difficulty);
   });
+  crosshairColorInput.addEventListener('input', (e) => {
+    crosshairColor = e.target.value;
+    localStorage.setItem('crosshairColor', crosshairColor);
+    updateCrosshair();
+  });
+  crosshairSizeInput.addEventListener('input', (e) => {
+    crosshairSize = e.target.value;
+    localStorage.setItem('crosshairSize', crosshairSize);
+    updateCrosshair();
+  });
+  crosshairThicknessInput.addEventListener('input', (e) => {
+    crosshairThickness = e.target.value;
+    localStorage.setItem('crosshairThickness', crosshairThickness);
+    updateCrosshair();
+  });
 
   function startGame() {
     score = 0;
@@ -62,6 +86,7 @@ document.addEventListener('DOMContentLoaded', () => {
     gameRunning = true;
     gameInterval = setInterval(spawnTargets, 1000 / sensitivity);
     gameArea.addEventListener('click', handleClick);
+    updateCrosshair(); // Set the crosshair on game start
   }
 
   function endGame() {
@@ -110,5 +135,40 @@ document.addEventListener('DOMContentLoaded', () => {
     while (gameArea.firstChild) {
       gameArea.removeChild(gameArea.firstChild);
     }
+  }
+
+  function updateCrosshair() {
+    document.querySelectorAll('.crosshair').forEach(el => el.remove());
+
+    const horizontalLine = document.createElement('div');
+    horizontalLine.className = 'crosshair horizontal';
+    horizontalLine.style.backgroundColor = crosshairColor;
+    horizontalLine.style.width = `${crosshairSize}px`;
+    horizontalLine.style.height = `${crosshairThickness}px`;
+    horizontalLine.style.position = 'fixed';
+    horizontalLine.style.pointerEvents = 'none';
+
+    const verticalLine = document.createElement('div');
+    verticalLine.className = 'crosshair vertical';
+    verticalLine.style.backgroundColor = crosshairColor;
+    verticalLine.style.height = `${crosshairSize}px`;
+    verticalLine.style.width = `${crosshairThickness}px`;
+    verticalLine.style.position = 'fixed';
+    verticalLine.style.pointerEvents = 'none';
+
+    gameArea.appendChild(horizontalLine);
+    gameArea.appendChild(verticalLine);
+
+    gameArea.addEventListener('mousemove', (e) => {
+      const rect = gameArea.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+
+      horizontalLine.style.left = `${x - crosshairSize / 2}px`;
+      horizontalLine.style.top = `${y - crosshairThickness / 2}px`;
+
+      verticalLine.style.left = `${x - crosshairThickness / 2}px`;
+      verticalLine.style.top = `${y - crosshairSize / 2}px`;
+    });
   }
 });
