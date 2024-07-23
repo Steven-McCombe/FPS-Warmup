@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FPS Warm-Up</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <h1>FPS Warm-Up</h1>
+    <div class="settings">
+      <label for="sensitivity">Sensitivity:</label>
+      <input type="range" id="sensitivity" min="0.1" max="5" step="0.1" value="1">
+      
+      <label for="boxSize">Box Size:</label>
+      <input type="range" id="boxSize" min="10" max="50" step="1" value="20">
+
+      <label for="shape">Shape:</label>
+      <select id="shape">
+        <option value="square">Square</option>
+        <option value="circle">Circle</option>
+      </select>
+
+      <label for="targetColor">Target Color:</label>
+      <input type="color" id="targetColor" value="#ff0000">
+
+      <label for="civilianColor">Civilian Color:</label>
+      <input type="color" id="civilianColor" value="#0000ff">
+
+      <label for="difficulty">Difficulty:</label>
+      <select id="difficulty">
+        <option value="5000">Noob (5 secs)</option>
+        <option value="4000">Easy (4 secs)</option>
+        <option value="3000">Medium (3 secs)</option>
+        <option value="2000">Hard (2 secs)</option>
+        <option value="1000">Advanced (1 sec)</option>
+        <option value="500">Elite (0.5 secs)</option>
+      </select>
+    </div>
+    <button id="startGame">Start Game</button>
+    <div id="gameArea"></div>
+    <div id="scoreBoard">Score: <span id="score">0</span></div>
+    <div id="gameOver" class="hidden">Game Over!</div>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>

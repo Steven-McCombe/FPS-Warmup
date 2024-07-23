@@ -1,0 +1,98 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+body {
+  font-family: 'Roboto', sans-serif;
+  background-color: #1e1e1e;
+  color: #ffffff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+}
+
+.container {
+  text-align: center;
+  width: 80%;
+  max-width: 800px;
+  padding: 20px;
+  border-radius: 10px;
+  background-color: #2e2e2e;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+}
+
+h1 {
+  color: #00ff00;
+  margin-bottom: 20px;
+}
+
+.settings {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.settings label {
+  font-weight: bold;
+  color: #00ff00;
+}
+
+.settings input[type="range"],
+.settings select,
+.settings input[type="color"] {
+  margin: 0 10px;
+}
+
+#startGame {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  background-color: #00ff00;
+  color: #000;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+#startGame:hover {
+  background-color: #00cc00;
+}
+
+#gameArea {
+  width: 100%;
+  height: 400px;
+  border: 2px solid #00ff00;
+  margin: 20px auto;
+  position: relative;
+  background-color: #1a1a1a;
+  border-radius: 10px;
+}
+
+.target, .civilian {
+  position: absolute;
+  border-radius: 50%;
+  transition: transform 0.2s ease;
+}
+
+.target {
+  background-color: red;
+}
+
+.civilian {
+  background-color: blue;
+}
+
+.hidden {
+  display: none;
+}
+
+#scoreBoard, #gameOver {
+  margin-top: 20px;
+  font-size: 1.2em;
+}
+
+#gameOver {
+  color: red;
+}
